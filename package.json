@@ -9,7 +9,7 @@
 	},
 	"keywords": [],
 	"author": "Vyrek",
-	"license": "ISC",
+	"license": "Apache-2.0",
 	"dependencies": {
 		"body-parser": "^1.19.0",
 		"dotenv": "^9.0.2",
