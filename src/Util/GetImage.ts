@@ -53,6 +53,8 @@ export async function GetComic(puppeter: Browser, url: string, ID: string, isBar
 
         await page.screenshot({ path: path.join(__dirname, `../../Images/${ID}.png`), clip: { x: Data.x, y: Data.y, width: Data.width, height: Data.height } })
 
+        await page.close()
+
         return Data.title
     } catch (e) {
         throw e
