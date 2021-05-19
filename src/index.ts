@@ -20,7 +20,8 @@ puppeteer.defaultArgs({
 config();
 
 (async () => {
-	const browser = await puppeteer.launch()
+	const Options = { args: ['--no-sandbox', '--disable-setuid-sandbox'] } as any
+	const browser = await puppeteer.launch(Options)
 
 	app.post('/post', async (req, res) => {
 		const TOKEN = req.headers.authorization
