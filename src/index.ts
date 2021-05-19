@@ -5,7 +5,7 @@ import AdblockPlugin from 'puppeteer-extra-plugin-adblocker'
 import { json } from 'body-parser'
 import { config } from 'dotenv'
 import { join } from 'path'
-import { GetImage } from './Util/GetImage'
+import { GetComic } from './Util/GetImage'
 
 const app = express()
 app.use(json())
@@ -29,10 +29,11 @@ config();
 
 		const ImageURL = req.body.url
 		const _ID = req.body._id
-		const Image = await GetImage(browser, ImageURL, _ID).catch(e => { console.log(e); return e.message })
-		if (typeof Image !== 'boolean') return res.status(500).json({ message: `Se produjo un error obteniendo la imagen`, error: Image })
+		const isBaraOnline = req.body.baraOnline === 'true' ? true : false
+		const Data = await GetComic(browser, ImageURL, _ID, isBaraOnline).catch(e => { console.log(e); return e.message })
+		if (typeof Data !== 'string') return res.status(500).json({ message: `Se produjo un error obteniendo la imagen`, error: Data })
 
-		return res.status(200).json({ message: `Se ha publicado correctamente la imagen con id: ${_ID}`, url: `cdn.muscleboat.ga/${_ID}.png` })
+		return res.status(200).json({ message: `Se ha publicado correctamente la imagen con id: ${_ID}`, url: `cdn.muscleboat.ga/${_ID}.png`, title: Data })
 	})
 
 	app.listen(process.env.PORT, () => {
