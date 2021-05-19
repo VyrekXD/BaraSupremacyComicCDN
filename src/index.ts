@@ -1,6 +1,7 @@
 import express from 'express'
 import puppeteer from 'puppeteer-extra'
 import StealthPlugin from 'puppeteer-extra-plugin-stealth'
+import AdblockPlugin from 'puppeteer-extra-plugin-adblocker'
 import { json } from 'body-parser'
 import { config } from 'dotenv'
 import { join } from 'path'
@@ -11,6 +12,11 @@ app.use(json())
 app.use(express.static(join(__dirname, '../Images')))
 
 puppeteer.use(StealthPlugin())
+puppeteer.use(AdblockPlugin())
+puppeteer.defaultArgs({
+	args: ['--no-sandbox', '--disable-setuid-sandbox']
+})
+
 config();
 
 (async () => {
