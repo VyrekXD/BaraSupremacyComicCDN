@@ -26,9 +26,9 @@ config();
 	app.post('/post', async (req, res) => {
 		const TOKEN = req.headers.authorization
 		if (TOKEN !== process.env.TOKEN) return res.status(401).json({ message: `Tu token no es el correcto` })
-
+		console.log(req.body)
 		const ImageURL = req.body.url
-		const _ID = req.body._id
+		const _ID = req.body.id
 		const isBaraOnline = req.body.baraOnline === 'true' ? true : false
 		const Data = await GetComic(browser, ImageURL, _ID, isBaraOnline).catch(e => { console.log(e); return e.message })
 		if (typeof Data !== 'string') return res.status(500).json({ message: `Se produjo un error obteniendo la imagen`, error: Data })
