@@ -33,7 +33,7 @@ config();
 		const Data = await GetComic(browser, ImageURL, _ID, isBaraOnline).catch(e => { console.log(e); return e.message })
 		if (typeof Data !== 'string') return res.status(500).json({ message: `Se produjo un error obteniendo la imagen`, error: Data })
 
-		return res.status(200).json({ message: `Se ha publicado correctamente la imagen con id: ${_ID}`, url: `cdn.muscleboat.ga/${_ID}.png`, title: Data })
+		return res.status(200).json({ message: `Se ha publicado correctamente la imagen con id: ${_ID}`, url: `https://cdn.muscleboat.ga/${_ID}.png`, title: Data })
 	})
 
 	app.listen(process.env.PORT, () => {
